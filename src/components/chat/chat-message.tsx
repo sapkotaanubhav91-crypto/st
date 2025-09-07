@@ -51,7 +51,7 @@ export function ChatMessage({
         {contentType === "code" && typeof displayContent === "string" ? (
           <CodeBlock code={displayContent} language={language || ""} />
         ) : (
-          <p className="whitespace-pre-wrap">{displayContent}</p>
+          <p className="whitespace-pre-wrap text-sm">{displayContent}</p>
         )}
       </div>
       {isUser && (
