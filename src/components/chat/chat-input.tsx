@@ -130,7 +130,7 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
             value={message}
             onChange={handleInputChange}
             placeholder="Type a Message"
-            className="w-full bg-muted text-white placeholder:text-white/60 rounded-full px-10 py-2 pr-20 resize-none max-h-48 border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+            className="w-full bg-muted text-white placeholder:text-white/60 rounded-full px-10 py-1 pr-16 text-sm resize-none max-h-48 border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
             onKeyDown={(e) => {
               if (e.key === "Enter" && !e.shiftKey) {
                 handleSubmit(e);
@@ -144,31 +144,31 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
               type="button"
               variant="ghost"
               size="icon"
-              className="text-white/60 hover:text-white h-8 w-8"
+              className="text-white/60 hover:text-white h-7 w-7"
               onClick={() => fileInputRef.current?.click()}
               disabled={isLoading}
             >
-              <Paperclip className="w-4 h-4" />
+              <Paperclip className="w-3.5 h-3.5" />
             </Button>
           </div>
-          <div className="absolute right-2 flex items-center space-x-1">
+          <div className="absolute right-1 flex items-center">
             <Button
               type="button"
               variant="ghost"
               size="icon"
               onClick={handleMicClick}
               disabled={isLoading}
-              className={cn("text-white/60 hover:text-white h-8 w-8", isListening && "text-blue-400")}
+              className={cn("text-white/60 hover:text-white h-7 w-7", isListening && "text-blue-400")}
             >
-              <Mic className="w-4 h-4" />
+              <Mic className="w-3.5 h-3.5" />
             </Button>
             <Button
               type="submit"
               size="icon"
               disabled={isLoading || (!message.trim() && !image)}
-              className="bg-white/90 hover:bg-white text-black rounded-full h-8 w-8"
+              className="bg-white/90 hover:bg-white text-black rounded-full h-7 w-7"
             >
-              <ArrowUp className="w-4 h-4" />
+              <ArrowUp className="w-3.5 h-3.5" />
             </Button>
           </div>
         </div>
