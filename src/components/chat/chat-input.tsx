@@ -130,7 +130,7 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
             value={message}
             onChange={handleInputChange}
             placeholder="Type a Message"
-            className="w-full bg-muted text-white placeholder:text-white/60 rounded-full px-10 py-1 pr-16 text-sm resize-none max-h-48 border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+            className="w-full bg-muted text-white placeholder:text-white/60 rounded-full pl-10 pr-16 py-2 text-sm resize-none max-h-48 border-0 focus-visible:ring-0 focus-visible:ring-offset-0 placeholder:text-xs"
             onKeyDown={(e) => {
               if (e.key === "Enter" && !e.shiftKey) {
                 handleSubmit(e);
@@ -148,10 +148,10 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
               onClick={() => fileInputRef.current?.click()}
               disabled={isLoading}
             >
-              <Paperclip className="w-3.5 h-3.5" />
+              <Paperclip className="w-4 h-4" />
             </Button>
           </div>
-          <div className="absolute right-1 flex items-center">
+          <div className="absolute right-2 flex items-center gap-1">
             <Button
               type="button"
               variant="ghost"
@@ -160,7 +160,7 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
               disabled={isLoading}
               className={cn("text-white/60 hover:text-white h-7 w-7", isListening && "text-blue-400")}
             >
-              <Mic className="w-3.5 h-3.5" />
+              <Mic className="w-4 h-4" />
             </Button>
             <Button
               type="submit"
@@ -168,7 +168,7 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
               disabled={isLoading || (!message.trim() && !image)}
               className="bg-white/90 hover:bg-white text-black rounded-full h-7 w-7"
             >
-              <ArrowUp className="w-3.5 h-3.5" />
+              <ArrowUp className="w-4 h-4" />
             </Button>
           </div>
         </div>
