@@ -22,7 +22,7 @@ export function ChatList({ messages, isLoading }: ChatListProps) {
 
   return (
     <ScrollArea className="flex-1" ref={scrollAreaRef}>
-      <div className="p-4 md:p-6 space-y-6">
+      <div className="p-4 md:p-6 space-y-6 max-w-2xl mx-auto">
         {messages.map((message, index) => (
           <ChatMessageComponent key={message.id} {...message} />
         ))}

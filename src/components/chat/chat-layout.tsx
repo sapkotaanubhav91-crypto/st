@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { getAntharaResponse } from "@/lib/actions";
 import { ChatList } from "./chat-list";
@@ -11,21 +11,11 @@ export function ChatLayout() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [currentEmotion, setCurrentEmotion] = useState<"happy" | "angry">("happy");
-
-  useEffect(() => {
-    // Initial greeting from Anthara
-    const initialMessage: ChatMessage = {
-      id: uuidv4(),
-      role: "assistant",
-      content: "What can I help you with?",
-      emotion: "happy",
-      isStreaming: true,
-    };
-    setMessages([initialMessage]);
-  }, []);
+  const [isStarted, setIsStarted] = useState(false);
 
   const handleSend = async (message: string, imageDataUri: string | null) => {
     if (isLoading) return;
+    if (!isStarted) setIsStarted(true);
     setIsLoading(true);
 
     const userMessage: ChatMessage = {
@@ -74,8 +64,16 @@ export function ChatLayout() {
   };
 
   return (
-    <div className="flex flex-col h-full">
-      <ChatList messages={messages} isLoading={isLoading} />
+    <div className="flex flex-col h-full w-full max-w-4xl mx-auto">
+      {isStarted ? (
+        <ChatList messages={messages} isLoading={isLoading} />
+      ) : (
+        <div className="flex-1 flex items-center justify-center">
+          <h1 className="text-5xl font-bold text-center text-white/90">
+            Wat can I help you with?
+          </h1>
+        </div>
+      )}
       <ChatInput onSend={handleSend} isLoading={isLoading} />
     </div>
   );

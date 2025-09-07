@@ -38,9 +38,9 @@ export function ChatMessage({
       <div
         className={cn(
           "max-w-[80%] p-4 rounded-2xl",
-          isUser
-            ? "bg-primary text-primary-foreground rounded-br-none"
-            : "bg-card text-card-foreground rounded-bl-none"
+           isUser
+            ? "bg-blue-600 text-white rounded-br-none"
+            : "bg-muted text-white rounded-bl-none"
         )}
       >
         {image && (
@@ -55,8 +55,8 @@ export function ChatMessage({
         )}
       </div>
       {isUser && (
-        <Avatar className="flex-shrink-0">
-          <AvatarFallback>
+        <Avatar className="flex-shrink-0 bg-muted">
+          <AvatarFallback className="bg-transparent">
             <User />
           </AvatarFallback>
         </Avatar>

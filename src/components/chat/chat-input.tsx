@@ -4,7 +4,7 @@ import { useState, useRef, useEffect, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Paperclip, Mic, Send, X } from "lucide-react";
+import { Paperclip, Mic, ArrowUp, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
@@ -97,8 +97,8 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
   };
 
   return (
-    <div className="p-4 border-t bg-background">
-      <form onSubmit={handleSubmit} className="relative">
+    <div className="p-4 bg-black">
+      <form onSubmit={handleSubmit} className="relative max-w-2xl mx-auto">
         {image && (
           <div className="relative w-24 h-24 mb-2">
             <Image
@@ -124,52 +124,62 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
             </Button>
           </div>
         )}
-        <Textarea
-          ref={textareaRef}
-          value={message}
-          onChange={handleInputChange}
-          placeholder="What can I help you with?"
-          className="pr-28 py-3 resize-none max-h-48"
-          onKeyDown={(e) => {
-            if (e.key === "Enter" && !e.shiftKey) {
-              handleSubmit(e);
-            }
-          }}
-          rows={1}
-          disabled={isLoading}
-        />
-        <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center space-x-1">
-          <Button
-            type="button"
-            variant="ghost"
-            size="icon"
-            onClick={() => fileInputRef.current?.click()}
+        <div className="relative flex items-center">
+          <Textarea
+            ref={textareaRef}
+            value={message}
+            onChange={handleInputChange}
+            placeholder="Type a Message"
+            className="w-full bg-muted text-white placeholder:text-white/60 rounded-full px-12 py-3 pr-24 resize-none max-h-48 border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.shiftKey) {
+                handleSubmit(e);
+              }
+            }}
+            rows={1}
             disabled={isLoading}
-          >
-            <Paperclip className="w-5 h-5" />
-          </Button>
-          <input
+          />
+          <div className="absolute left-3 flex items-center">
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              className="text-white/60 hover:text-white"
+              onClick={() => fileInputRef.current?.click()}
+              disabled={isLoading}
+            >
+              <Paperclip className="w-5 h-5" />
+            </Button>
+          </div>
+          <div className="absolute right-3 flex items-center space-x-1">
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              onClick={handleMicClick}
+              disabled={isLoading}
+              className={cn("text-white/60 hover:text-white", isListening && "text-blue-400")}
+            >
+              <Mic className="w-5 h-5" />
+            </Button>
+            <Button
+              type="submit"
+              size="icon"
+              disabled={isLoading || (!message.trim() && !image)}
+              className="bg-white/90 hover:bg-white text-black rounded-full"
+            >
+              <ArrowUp className="w-5 h-5" />
+            </Button>
+          </div>
+        </div>
+      </form>
+       <input
             type="file"
             ref={fileInputRef}
             onChange={handleImageChange}
             className="hidden"
             accept="image/*"
           />
-          <Button
-            type="button"
-            variant="ghost"
-            size="icon"
-            onClick={handleMicClick}
-            disabled={isLoading}
-            className={cn(isListening && "text-primary")}
-          >
-            <Mic className="w-5 h-5" />
-          </Button>
-          <Button type="submit" size="icon" disabled={isLoading || (!message.trim() && !image)}>
-            <Send className="w-5 h-5" />
-          </Button>
-        </div>
-      </form>
     </div>
   );
 }
