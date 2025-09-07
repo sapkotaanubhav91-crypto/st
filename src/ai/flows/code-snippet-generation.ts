@@ -28,12 +28,6 @@ export type CodeSnippetGenerationOutput = z.infer<
   typeof CodeSnippetGenerationOutputSchema
 >;
 
-export async function generateCodeSnippet(
-  input: CodeSnippetGenerationInput
-): Promise<CodeSnippetGenerationOutput> {
-  return codeSnippetGenerationFlow(input);
-}
-
 const prompt = ai.definePrompt({
   name: 'codeSnippetGenerationPrompt',
   input: {schema: CodeSnippetGenerationInputSchema},
@@ -43,11 +37,11 @@ const prompt = ai.definePrompt({
 Question: How do I sort an array in Javascript?
 
 Response:
-```javascript
+\'\'\'javascript
 const arr = [3, 1, 4, 1, 5, 9, 2, 6];
 arr.sort((a, b) => a - b);
 console.log(arr);
-```
+\'\'\'
 
 Question: {{{question}}}`,
 });
@@ -63,3 +57,9 @@ const codeSnippetGenerationFlow = ai.defineFlow(
     return output!;
   }
 );
+
+export async function generateCodeSnippet(
+  input: CodeSnippetGenerationInput
+): Promise<CodeSnippetGenerationOutput> {
+  return codeSnippetGenerationFlow(input);
+}
