@@ -65,10 +65,6 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
   
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMessage(e.target.value);
-    if (textareaRef.current) {
-      textareaRef.current.style.height = "auto";
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
-    }
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -90,9 +86,6 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
     setImage(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
-    }
-    if (textareaRef.current) {
-      textareaRef.current.style.height = "auto";
     }
   };
 
@@ -130,7 +123,7 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
             value={message}
             onChange={handleInputChange}
             placeholder="Type a Message"
-            className="w-full bg-muted text-white placeholder:text-white/60 rounded-full pl-12 pr-20 py-3 resize-none max-h-48 border-0 focus-visible:ring-0 focus-visible:ring-offset-0 placeholder:text-xs text-xs"
+            className="w-full bg-muted text-white placeholder:text-white/60 rounded-full pl-12 pr-20 py-2.5 resize-none h-[44px] text-xs"
             onKeyDown={(e) => {
               if (e.key === "Enter" && !e.shiftKey) {
                 handleSubmit(e);
@@ -144,31 +137,31 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
               type="button"
               variant="ghost"
               size="icon"
-              className="text-white/60 hover:text-white h-8 w-8"
+              className="text-white/60 hover:text-white h-7 w-7"
               onClick={() => fileInputRef.current?.click()}
               disabled={isLoading}
             >
-              <Paperclip className="w-5 h-5" />
+              <Paperclip className="w-4 h-4" />
             </Button>
           </div>
-          <div className="absolute right-3 flex items-center gap-2">
+          <div className="absolute right-3 flex items-center gap-1">
             <Button
               type="button"
               variant="ghost"
               size="icon"
               onClick={handleMicClick}
               disabled={isLoading}
-              className={cn("text-white/60 hover:text-white h-8 w-8", isListening && "text-blue-400")}
+              className={cn("text-white/60 hover:text-white h-7 w-7", isListening && "text-blue-400")}
             >
-              <Mic className="w-5 h-5" />
+              <Mic className="w-4 h-4" />
             </Button>
             <Button
               type="submit"
               size="icon"
               disabled={isLoading || (!message.trim() && !image)}
-              className="bg-blue-600 hover:bg-blue-700 text-white rounded-full h-8 w-8"
+              className="bg-blue-600 hover:bg-blue-700 text-white rounded-full h-7 w-7"
             >
-              <ArrowUp className="w-5 h-5" />
+              <ArrowUp className="w-4 h-4" />
             </Button>
           </div>
         </div>
