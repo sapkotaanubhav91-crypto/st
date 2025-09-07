@@ -130,7 +130,7 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
             value={message}
             onChange={handleInputChange}
             placeholder="Type a Message"
-            className="w-full bg-muted text-white placeholder:text-white/60 rounded-full pl-12 pr-20 py-3 text-sm resize-none max-h-48 border-0 focus-visible:ring-0 focus-visible:ring-offset-0 placeholder:text-sm"
+            className="w-full bg-muted text-white placeholder:text-white/60 rounded-full pl-12 pr-20 py-3 resize-none max-h-48 border-0 focus-visible:ring-0 focus-visible:ring-offset-0 placeholder:text-xs text-xs"
             onKeyDown={(e) => {
               if (e.key === "Enter" && !e.shiftKey) {
                 handleSubmit(e);
