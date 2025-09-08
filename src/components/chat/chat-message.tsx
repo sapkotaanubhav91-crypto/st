@@ -39,7 +39,7 @@ export function ChatMessage({
         className={cn(
           "max-w-[80%] p-3 rounded-2xl text-sm",
            isUser
-            ? "bg-primary text-primary-foreground rounded-br-none"
+            ? "bg-primary text-primary-foreground"
             : "bg-muted text-white rounded-bl-none"
         )}
       >
