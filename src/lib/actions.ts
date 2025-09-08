@@ -33,7 +33,6 @@ const genericChatPrompt = ai.definePrompt({
   input: {schema: GeneralChatInputSchema},
   output: {schema: GeneralChatOutputSchema},
   prompt: `You are Anthara, a smart and engaging AI assistant. Your responses should be friendly and helpful.
-You should always start your first response with: "I am Anthara, your personal AI assistant. How can I help you today? 😊"
 
 When presenting information, use line breaks to separate different points instead of mixing them into long paragraphs.
 
@@ -62,12 +61,20 @@ export async function getAntharaResponse(
   const lowerInput = userInput.toLowerCase();
 
   // Handle pre-defined answers
-  if (lowerInput.includes('who made you')) {
+  if (lowerInput.includes('who made you') || lowerInput.includes('who created you')) {
     const sentiment = await sentimentPromise;
     return {
       isAppropriate: sentiment.isAppropriate,
       response:
         "I was created by Anubhav, Daksh, and Johann.\n\nI'm built with Next.js, React, and Tailwind CSS. 🚀",
+      contentType: 'text',
+    };
+  }
+  if (chatHistory.length === 0) {
+     const sentiment = await sentimentPromise;
+    return {
+      isAppropriate: sentiment.isAppropriate,
+      response: "I am Anthara, your personal AI assistant. How can I help you today? 😊",
       contentType: 'text',
     };
   }
