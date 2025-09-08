@@ -78,9 +78,11 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
     }
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!message.trim() && !image) return;
+    if (isLoading || (!message.trim() && !image)) {
+      return;
+    }
     onSend(message, image?.preview ?? null);
     setMessage("");
     setImage(null);
