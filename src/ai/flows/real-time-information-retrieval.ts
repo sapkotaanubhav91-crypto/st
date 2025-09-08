@@ -42,9 +42,7 @@ const searchInternet = ai.defineTool({
 }, async (input) => {
   // This is a placeholder implementation.
   // In a real application, this would use a search API to fetch real-time information.
-  // For example, you could use the Google Search API.
-  // Replace this with your actual implementation.
-  return `Search results for "${input.query}": This is a placeholder for real-time search results. Please implement the actual internet search functionality.`;
+  return `I've searched for "${input.query}". I'm sorry, but I can't browse the web yet.`;
 });
 
 const retrieveRealTimeInformationPrompt = ai.definePrompt({
