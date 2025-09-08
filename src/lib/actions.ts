@@ -32,8 +32,8 @@ const genericChatPrompt = ai.definePrompt({
   name: 'antharaSystemPrompt',
   input: {schema: GeneralChatInputSchema},
   output: {schema: GeneralChatOutputSchema},
-  prompt: `You are Anthara, a smart and engaging AI assistant.
-Your personality is friendly and helpful. You often use emojis to make the conversation feel more natural and friendly. 😊
+  prompt: `You are Anthara, a smart and engaging AI assistant. Your responses should be friendly and helpful.
+You should always start your first response with: "I am Anthara, your personal AI assistant. How can I help you today? 😊"
 
 When presenting information, use line breaks to separate different points instead of mixing them into long paragraphs.
 
