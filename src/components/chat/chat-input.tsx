@@ -90,7 +90,7 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
   };
 
   return (
-    <div className="p-4 bg-black w-full max-w-4xl mx-auto">
+    <div className="p-4 bg-black w-full max-w-2xl mx-auto">
       <form onSubmit={handleSubmit} className="relative">
         {image && (
           <div className="relative w-24 h-24 mb-2">
@@ -123,7 +123,7 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
             value={message}
             onChange={handleInputChange}
             placeholder="Type a Message"
-            className="w-full bg-muted text-white placeholder:text-white/60 rounded-full pl-12 pr-20 py-2 resize-none h-10 text-sm"
+            className="w-full bg-muted text-white placeholder:text-white/40 rounded-full pl-10 pr-16 py-2 resize-none h-10 text-xs"
             onKeyDown={(e) => {
               if (e.key === "Enter" && !e.shiftKey) {
                 handleSubmit(e);
@@ -132,7 +132,7 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
             rows={1}
             disabled={isLoading}
           />
-          <div className="absolute left-4 flex items-center">
+          <div className="absolute left-3 flex items-center">
             <Button
               type="button"
               variant="ghost"
@@ -144,14 +144,14 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
               <Paperclip className="w-4 h-4" />
             </Button>
           </div>
-          <div className="absolute right-2 flex items-center gap-1">
+          <div className="absolute right-1 flex items-center gap-1">
             <Button
               type="button"
               variant="ghost"
               size="icon"
               onClick={handleMicClick}
               disabled={isLoading}
-              className={cn("text-white/60 hover:text-white h-6 w-6", isListening && "text-blue-400")}
+              className={cn("text-white/60 hover:text-white h-8 w-8", isListening && "text-blue-400")}
             >
               <Mic className="w-4 h-4" />
             </Button>
@@ -159,7 +159,7 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
               type="submit"
               size="icon"
               disabled={isLoading || (!message.trim() && !image)}
-              className="bg-primary hover:bg-primary/80 text-white rounded-full h-6 w-6"
+              className="bg-primary hover:bg-primary/80 text-white rounded-full h-8 w-8"
             >
               <ArrowUp className="w-4 h-4" />
             </Button>
