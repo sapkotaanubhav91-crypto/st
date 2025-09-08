@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 
-const avatarVariants = cva("w-10 h-10 rounded-full flex items-center justify-center", {
+const avatarVariants = cva("w-16 h-16 rounded-full flex items-center justify-center", {
   variants: {
     emotion: {
       happy: "",
@@ -24,8 +24,8 @@ export function ChatAvatar({ emotion, className }: ChatAvatarProps) {
     <div className={cn(avatarVariants({ emotion }), className)}>
       {emotion === "happy" ? (
         <svg
-          width="40"
-          height="32"
+          width="60"
+          height="48"
           viewBox="0 0 40 32"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -63,8 +63,8 @@ export function ChatAvatar({ emotion, className }: ChatAvatarProps) {
         </svg>
       ) : (
         <svg
-          width="40"
-          height="32"
+          width="60"
+          height="48"
           viewBox="0 0 40 32"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
