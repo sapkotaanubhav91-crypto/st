@@ -37,9 +37,9 @@ export function ChatMessage({
       {!isUser && <ChatAvatar emotion={emotion} className="flex-shrink-0" />}
       <div
         className={cn(
-          "max-w-[80%] p-4 rounded-2xl",
+          "max-w-[80%] p-3 rounded-2xl text-sm",
            isUser
-            ? "bg-blue-600 text-white rounded-br-none"
+            ? "bg-primary text-primary-foreground rounded-br-none"
             : "bg-muted text-white rounded-bl-none"
         )}
       >
@@ -51,12 +51,12 @@ export function ChatMessage({
         {contentType === "code" && typeof displayContent === "string" ? (
           <CodeBlock code={displayContent} language={language || ""} />
         ) : (
-          <p className="whitespace-pre-wrap text-sm">{displayContent}</p>
+          <p className="whitespace-pre-wrap">{displayContent}</p>
         )}
       </div>
       {isUser && (
         <Avatar className="flex-shrink-0 bg-muted">
-          <AvatarFallback className="bg-transparent">
+          <AvatarFallback className="bg-transparent text-white">
             <User />
           </AvatarFallback>
         </Avatar>

@@ -12,18 +12,18 @@ interface ChatListProps {
 }
 
 export function ChatList({ messages, isLoading }: ChatListProps) {
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const scrollViewportRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (scrollAreaRef.current) {
-      scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight;
+    if (scrollViewportRef.current) {
+      scrollViewportRef.current.scrollTop = scrollViewportRef.current.scrollHeight;
     }
   }, [messages, isLoading]);
 
   return (
-    <ScrollArea className="flex-1" ref={scrollAreaRef}>
+    <ScrollArea className="flex-1" viewportRef={scrollViewportRef}>
       <div className="p-4 md:p-6 space-y-6 max-w-2xl mx-auto">
-        {messages.map((message, index) => (
+        {messages.map((message) => (
           <ChatMessageComponent key={message.id} {...message} />
         ))}
         {isLoading && (

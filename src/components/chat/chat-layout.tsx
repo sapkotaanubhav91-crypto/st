@@ -6,6 +6,7 @@ import { getAntharaResponse } from "@/lib/actions";
 import { ChatList } from "./chat-list";
 import { ChatInput } from "./chat-input";
 import type { ChatMessage } from "@/types";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 export function ChatLayout() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -65,16 +66,24 @@ export function ChatLayout() {
 
   return (
     <div className="flex flex-col h-full w-full max-w-4xl mx-auto">
-      {isStarted ? (
-        <ChatList messages={messages} isLoading={isLoading} />
-      ) : (
-        <div className="flex-1 flex items-center justify-center">
-          <h1 className="text-5xl font-bold text-center text-white/90">
-            Wat can I help you with?
-          </h1>
-        </div>
-      )}
+      <div className="flex-1 overflow-y-auto">
+        {isStarted ? (
+          <ChatList messages={messages} isLoading={isLoading} />
+        ) : (
+          <div className="flex h-full items-center justify-center">
+            <h1 className="text-5xl font-bold text-center text-white/90">
+              What can I help you with?
+            </h1>
+          </div>
+        )}
+      </div>
       <ChatInput onSend={handleSend} isLoading={isLoading} />
+      <footer className="w-full max-w-4xl mx-auto p-4 flex justify-between items-center">
+        <Avatar className="w-6 h-6">
+          <AvatarFallback className="bg-muted text-white text-xs">N</AvatarFallback>
+        </Avatar>
+        <div />
+      </footer>
     </div>
   );
 }
