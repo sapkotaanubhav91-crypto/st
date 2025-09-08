@@ -57,7 +57,7 @@ export async function getAntharaResponse(
   if (lowerInput.includes("who made you")) {
     return {
       isAppropriate: sentiment.isAppropriate,
-      response: "I was created by a team of developers using Google's Gemini 1.5 Pro and Next.js. 👨‍💻",
+      response: "I was created by Anubhav, Daksh, and Johann. I'm built with Next.js, React, Tailwind CSS, and my 'brain' is powered by Google's Gemini 1.5 Pro AI model. 🚀",
       contentType: "text",
     };
   }
