@@ -40,7 +40,7 @@ export function ChatMessage({
           "max-w-[80%] p-3 rounded-2xl text-sm",
            isUser
             ? "bg-primary text-primary-foreground"
-            : "bg-muted text-white rounded-bl-none"
+            : "bg-muted text-foreground rounded-bl-none"
         )}
       >
         {image && (
@@ -56,7 +56,7 @@ export function ChatMessage({
       </div>
       {isUser && (
         <Avatar className="flex-shrink-0 bg-muted">
-          <AvatarFallback className="bg-transparent text-white">
+          <AvatarFallback className="bg-transparent text-foreground">
             <User />
           </AvatarFallback>
         </Avatar>

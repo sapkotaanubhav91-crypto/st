@@ -4,7 +4,7 @@ import { useState, useRef, useEffect, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Paperclip, Mic, ArrowUp, X } from "lucide-react";
+import { Paperclip, Mic, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
@@ -90,7 +90,7 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
   };
 
   return (
-    <div className="p-4 bg-black w-full max-w-2xl mx-auto">
+    <div className="p-4 bg-background w-full max-w-2xl mx-auto">
       <form onSubmit={handleSubmit} className="relative">
         {image && (
           <div className="relative w-24 h-24 mb-2">
@@ -123,7 +123,7 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
             value={message}
             onChange={handleInputChange}
             placeholder="Type a Message"
-            className="w-full bg-muted text-white placeholder:text-white/40 rounded-full pl-10 pr-16 py-2 resize-none h-10 text-xs"
+            className="w-full bg-muted text-foreground placeholder:text-muted-foreground rounded-full pl-10 pr-16 py-2 resize-none h-10 text-xs"
             onKeyDown={(e) => {
               if (e.key === "Enter" && !e.shiftKey) {
                 handleSubmit(e);
@@ -137,7 +137,7 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
               type="button"
               variant="ghost"
               size="icon"
-              className="text-white/60 hover:text-white h-6 w-6"
+              className="text-foreground/60 hover:text-foreground h-6 w-6"
               onClick={() => fileInputRef.current?.click()}
               disabled={isLoading}
             >
@@ -151,7 +151,7 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
               size="icon"
               onClick={handleMicClick}
               disabled={isLoading}
-              className={cn("text-white/60 hover:text-white h-8 w-8", isListening && "text-blue-400")}
+              className={cn("text-foreground/60 hover:text-foreground h-8 w-8", isListening && "text-blue-400")}
             >
               <Mic className="w-4 h-4" />
             </Button>
@@ -159,9 +159,22 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
               type="submit"
               size="icon"
               disabled={isLoading || (!message.trim() && !image)}
-              className="bg-primary hover:bg-primary/80 text-white rounded-full h-8 w-8"
+              className="bg-primary hover:bg-primary/80 text-primary-foreground rounded-full h-8 w-8"
             >
-              <ArrowUp className="w-4 h-4" />
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8.00014 1.33333C7.67115 1.33333 7.35593 1.4389 7.11131 1.62963L1.11131 6.2963C0.493348 6.77071 0.931195 7.77777 1.66681 7.77777H4.00014V9.55555C4.00014 10.2917 4.59196 10.8889 5.33348 10.8889H8.00014C8.32913 10.8889 8.64435 10.7833 8.88897 10.5926L14.889 5.92592C15.5069 5.45152 15.0691 4.44444 14.3335 4.44444H12.0001V2.66666C12.0001 1.93045 11.4083 1.33333 10.6668 1.33333L8.00014 1.33333Z" fill="url(#paint0_linear_send)"/>
+                <path d="M8.00014 14.6667C8.32913 14.6667 8.64435 14.5611 8.88897 14.3704L14.889 9.7037C15.5069 9.22929 15.0691 8.22222 14.3335 8.22222H12.0001V6.44444C12.0001 5.70823 11.4083 5.11111 10.6668 5.11111H8.00014C7.67115 5.11111 7.35593 5.21668 7.11131 5.4074L1.11131 10.0741C0.493348 10.5485 0.931195 11.5556 1.66681 11.5556H4.00014V13.3333C4.00014 14.0695 4.59196 14.6667 5.33348 14.6667H8.00014Z" fill="url(#paint1_linear_send)"/>
+                <defs>
+                  <linearGradient id="paint0_linear_send" x1="1.11131" y1="6.2963" x2="13.7187" y2="3.61116" gradientUnits="userSpaceOnUse">
+                    <stop stopColor="#A8D5FF"/>
+                    <stop offset="1" stopColor="#208CFF"/>
+                  </linearGradient>
+                  <linearGradient id="paint1_linear_send" x1="1.11131" y1="10.0741" x2="13.7187" y2="7.38894" gradientUnits="userSpaceOnUse">
+                    <stop stopColor="#C9A8FF"/>
+                    <stop offset="1" stopColor="#7C20FF"/>
+                  </linearGradient>
+                </defs>
+              </svg>
             </Button>
           </div>
         </div>
