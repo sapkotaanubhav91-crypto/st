@@ -53,7 +53,11 @@ export async function getAntharaResponse(
   userInput: string,
   imageDataUri: string | null
 ): Promise<ActionResult> {
-  const sentimentPromise = analyzeSentiment({text: userInput});
+  const sentimentPromise = analyzeSentiment({text: userInput}).catch(err => {
+    console.error('Error analyzing sentiment:', err);
+    // Default to appropriate if sentiment analysis fails
+    return {isAppropriate: true};
+  });
 
   const lowerInput = userInput.toLowerCase();
 
