@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ChatMessage as ChatMessageComponent } from "./chat-message";
 import type { ChatMessage } from "@/types";
-import { Loader2 } from "lucide-react";
+import { ChatAvatar } from "./chat-avatar";
 
 interface ChatListProps {
   messages: ChatMessage[];
@@ -28,9 +28,11 @@ export function ChatList({ messages, isLoading }: ChatListProps) {
         ))}
         {isLoading && (
           <div className="flex items-start gap-4">
-            <div className="w-10 h-10 rounded-full bg-primary/20 flex-shrink-0"></div>
-            <div className="flex items-center justify-center pt-2">
-              <Loader2 className="w-5 h-5 animate-spin text-primary" />
+            <ChatAvatar emotion="happy" className="flex-shrink-0" />
+            <div className="flex items-center space-x-2 pt-2">
+              <div className="w-2.5 h-2.5 bg-primary rounded-full animate-pulse [animation-delay:-0.3s]"></div>
+              <div className="w-2.5 h-2.5 bg-primary rounded-full animate-pulse [animation-delay:-0.15s]"></div>
+              <div className="w-2.5 h-2.5 bg-primary rounded-full animate-pulse"></div>
             </div>
           </div>
         )}
