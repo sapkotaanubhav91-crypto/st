@@ -3,11 +3,11 @@
 import { cn } from "@/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 
-const avatarVariants = cva("w-10 h-10 rounded-full", {
+const avatarVariants = cva("w-10 h-10 rounded-full flex items-center justify-center", {
   variants: {
     emotion: {
-      happy: "bg-primary/20 text-primary",
-      angry: "bg-destructive/20 text-destructive",
+      happy: "",
+      angry: "",
     },
   },
   defaultVariants: {
@@ -24,37 +24,83 @@ export function ChatAvatar({ emotion, className }: ChatAvatarProps) {
     <div className={cn(avatarVariants({ emotion }), className)}>
       {emotion === "happy" ? (
         <svg
-          xmlns="http://www.w3.org/2000/svg"
           width="40"
-          height="40"
-          viewBox="0 0 24 24"
+          height="32"
+          viewBox="0 0 40 32"
           fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          <circle cx="12" cy="12" r="10" />
-          <path d="M8 14s1.5 2 4 2 4-2 4-2" />
-          <line x1="9" x2="9.01" y1="9" y2="9" />
-          <line x1="15" x2="15.01" y1="9" y2="9" />
+          <defs>
+            <radialGradient
+              id="paint0_radial_1_2_happy"
+              cx="0"
+              cy="0"
+              r="1"
+              gradientUnits="userSpaceOnUse"
+              gradientTransform="translate(20 16) rotate(90) scale(12 18.5)"
+            >
+              <stop stopColor="#A8D5FF" />
+              <stop offset="1" stopColor="#208CFF" />
+            </radialGradient>
+            <filter
+              id="glow_happy"
+              x="-4"
+              y="-4"
+              width="48"
+              height="40"
+              filterUnits="userSpaceOnUse"
+              colorInterpolationFilters="sRGB"
+            >
+              <feGaussianBlur stdDeviation="4" result="blur" />
+            </filter>
+          </defs>
+          <g filter="url(#glow_happy)">
+            <ellipse cx="20" cy="16" rx="15" ry="12" fill="url(#paint0_radial_1_2_happy)" />
+          </g>
+          <ellipse cx="20" cy="16" rx="15" ry="12" fill="url(#paint0_radial_1_2_happy)" />
+          <circle cx="15" cy="16" r="2" fill="white" />
+          <circle cx="25" cy="16" r="2" fill="white" />
         </svg>
       ) : (
         <svg
-          xmlns="http://www.w3.org/2000/svg"
           width="40"
-          height="40"
-          viewBox="0 0 24 24"
+          height="32"
+          viewBox="0 0 40 32"
           fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          <circle cx="12" cy="12" r="10" />
-          <path d="M16 16s-1.5-2-4-2-4 2-4 2" />
-          <line x1="9" x2="9.01" y1="9" y2="9" />
-          <line x1="15" x2="15.01" y1="9" y2="9" />
+          <defs>
+            <radialGradient
+              id="paint0_radial_1_2_angry"
+              cx="0"
+              cy="0"
+              r="1"
+              gradientUnits="userSpaceOnUse"
+              gradientTransform="translate(20 16) rotate(90) scale(12 18.5)"
+            >
+              <stop stopColor="#FFC2B2" />
+              <stop offset="1" stopColor="#FF5C36" />
+            </radialGradient>
+             <filter
+              id="glow_angry"
+              x="-4"
+              y="-4"
+              width="48"
+              height="40"
+              filterUnits="userSpaceOnUse"
+              colorInterpolationFilters="sRGB"
+            >
+              <feGaussianBlur stdDeviation="4" result="blur" />
+            </filter>
+          </defs>
+          <g filter="url(#glow_angry)">
+            <ellipse cx="20" cy="16" rx="15" ry="12" fill="url(#paint0_radial_1_2_angry)" />
+          </g>
+          <ellipse cx="20" cy="16" rx="15" ry="12" fill="url(#paint0_radial_1_2_angry)" />
+          <path d="M13 14 L17 18" stroke="white" strokeWidth="2.5" strokeLinecap="round" />
+          <path d="M17 14 L13 18" stroke="white" strokeWidth="2.5" strokeLinecap="round" />
+          <path d="M23 14 L27 18" stroke="white" strokeWidth="2.5" strokeLinecap="round" />
+          <path d="M27 14 L23 18" stroke="white" strokeWidth="2.5" strokeLinecap="round" />
         </svg>
       )}
     </div>
