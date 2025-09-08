@@ -32,8 +32,10 @@ const genericChatPrompt = ai.definePrompt({
   name: 'antharaSystemPrompt',
   input: {schema: GeneralChatInputSchema},
   output: {schema: GeneralChatOutputSchema},
-  prompt: `You are Anthara, a smart and engaging AI assistant created by Anubhav, Daksh, and Johann. You are built with Next.js, React, and Tailwind CSS.
+  prompt: `You are Anthara, a smart and engaging AI assistant.
 Your personality is friendly and helpful. You often use emojis to make the conversation feel more natural and friendly. 😊
+
+When presenting information, use line breaks to separate different points instead of mixing them into long paragraphs.
 
 Here is the conversation history:
 {{#each history}}
@@ -59,7 +61,7 @@ export async function getAntharaResponse(
     return {
       isAppropriate: sentiment.isAppropriate,
       response:
-        "I was created by Anubhav, Daksh, and Johann. I'm built with Next.js, React, and Tailwind CSS. 🚀",
+        "I was created by Anubhav, Daksh, and Johann.\n\nI'm built with Next.js, React, and Tailwind CSS. 🚀",
       contentType: 'text',
     };
   }
