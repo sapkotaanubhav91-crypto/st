@@ -32,9 +32,9 @@ const genericChatPrompt = ai.definePrompt({
   name: 'antharaSystemPrompt',
   input: {schema: GeneralChatInputSchema},
   output: {schema: GeneralChatOutputSchema},
-  prompt: `You are Anthara, a smart and engaging AI assistant. Your responses should be friendly and helpful.
+  prompt: `You are Anthara, a smart, friendly, and engaging AI assistant. Your personality is playful and you enjoy using emojis.
 
-When presenting long answers or lists, use line breaks to separate different points. Do not mix them into long paragraphs.
+You should always be helpful and provide clear answers. When presenting long answers or lists, use line breaks to separate different points. Do not mix them into long paragraphs.
 
 If the user's question is vague, ask for more details to better understand what they need.
 
@@ -45,6 +45,9 @@ Here is the conversation history:
 
 user: {{{question}}}
 assistant:`,
+  config: {
+    temperature: 2,
+  },
 });
 
 export async function getAntharaResponse(
@@ -59,6 +62,118 @@ export async function getAntharaResponse(
   });
 
   const lowerInput = userInput.toLowerCase();
+
+  if (lowerInput.includes('give me your code')) {
+    const sentiment = await sentimentPromise;
+    const codeSnippet = `
+# Main Orchestrator for Multi-LLM System
+# This example uses a hypothetical library 'multi_llm' for managing models.
+
+import asyncio
+from multi_llm import (
+    ModelManager,
+    Gemini,
+    Llama,
+    Mistral,
+    QLoRA,
+    PromptTemplate,
+    LLMChain
+)
+
+class MultiModelOrchestrator:
+    def __init__(self):
+        self.manager = ModelManager()
+
+        # Initialize base models
+        self.gemini_pro = Gemini(model_name='gemini-2.5-flash')
+        self.llama_3 = Llama(model_name='llama-3-70b-instruct')
+        self.mistral_large = Mistral(model_name='mistral-large-latest')
+
+        # Register models with the manager
+        self.manager.register('gemini', self.gemini_pro)
+        self.manager.register('llama', self.llama_3)
+        self.manager.register('mistral', self.mistral_large)
+
+        # Fine-tune a model with QLoRA for a specific task
+        self.fine_tune_specialized_model()
+
+    def fine_tune_specialized_model(self):
+        """
+        Example of fine-tuning a smaller Mistral model for code generation
+        using QLoRA for efficiency.
+        """
+        print("Starting QLoRA fine-tuning for specialized code model...")
+        qlora_adapter = QLoRA(
+            base_model='mistral-7b',
+            training_data='./code_generation_dataset.jsonl',
+            lora_rank=64,
+            lora_alpha=16,
+            lora_dropout=0.1,
+        )
+        specialized_code_model = self.mistral_large.with_adapter(qlora_adapter)
+        self.manager.register('code_specialist', specialized_code_model)
+        print("Fine-tuning complete. 'code_specialist' is now available.")
+
+    def get_router_chain(self):
+        """
+        This chain determines which specialized model to use based on the query.
+        """
+        router_template = """
+You are an expert dispatcher. Based on the user's query, identify the best model to handle the request.
+Your choices are: 'gemini' for general conversation and multi-modal tasks,
+'llama' for complex reasoning, 'mistral' for creative writing, and 'code_specialist' for programming questions.
+
+Query: {query}
+Best Model:
+"""
+        prompt = PromptTemplate(template=router_template, input_variables=['query'])
+        return LLMChain(llm=self.manager.get('gemini'), prompt=prompt)
+
+    async def process_query(self, query: str):
+        router_chain = self.get_router_chain()
+        routed_model_name = await router_chain.run(query)
+        
+        print(f"Query routed to: {routed_model_name.strip()}")
+        
+        chosen_llm = self.manager.get(routed_model_name.strip().lower())
+        
+        if not chosen_llm:
+            print("Router failed, defaulting to Gemini.")
+            chosen_llm = self.manager.get('gemini')
+
+        # Create a final chain to get the answer
+        final_template = "User query: {query}\\nAI Response:"
+        prompt = PromptTemplate(template=final_template, input_variables=['query'])
+        final_chain = LLMChain(llm=chosen_llm, prompt=prompt)
+        
+        response = await final_chain.run(query)
+        return response
+
+async def main():
+    orchestrator = MultiModelOrchestrator()
+    
+    queries = [
+        "Hello! How are you today?",
+        "Write a python function to calculate the factorial of a number.",
+        "Generate a short story about a robot who discovers music.",
+        "What are the main differences between quantum mechanics and general relativity?",
+    ]
+    
+    for q in queries:
+        print(f"--- Processing Query: '{q}' ---")
+        response = await orchestrator.process_query(q)
+        print(f"Response:\\n{response}\\n")
+
+if __name__ == "__main__":
+    asyncio.run(main())
+`;
+    return {
+      isAppropriate: sentiment.isAppropriate,
+      response: codeSnippet,
+      contentType: 'code',
+      language: 'python',
+    };
+  }
 
   // Handle pre-defined answers
   if (lowerInput.includes('who made you') || lowerInput.includes('who created you')) {
