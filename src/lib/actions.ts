@@ -220,7 +220,7 @@ if __name__ == "__main__":
      const sentiment = await sentimentPromise;
     return {
       isAppropriate: sentiment.isAppropriate,
-      response: "I am Anthara, your personal AI assistant. How can I help you today? 😊",
+      response: "Hey! 😊 Not much — just enjoying this beautiful Thursday. How’s your day going so far?",
       contentType: 'text',
     };
   }
