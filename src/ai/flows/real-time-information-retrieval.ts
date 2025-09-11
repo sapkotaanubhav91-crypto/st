@@ -32,18 +32,30 @@ export async function retrieveRealTimeInformation(
   return retrieveRealTimeInformationFlow(input);
 }
 
-const searchInternet = ai.defineTool({
-  name: 'searchInternet',
-  description: 'Searches the internet for the given query and returns the results.',
-  inputSchema: z.object({
-    query: z.string().describe('The query to search for on the internet.'),
-  }),
-  outputSchema: z.string(),
-}, async (input) => {
-  // This is a placeholder implementation.
-  // In a real application, this would use a search API to fetch real-time information.
-  return `I've searched for "${input.query}". I'm sorry, but I can't browse the web yet.`;
-});
+const searchInternet = ai.defineTool(
+  {
+    name: 'searchInternet',
+    description:
+      'Searches the internet for the given query using Google Search and returns the results.',
+    inputSchema: z.object({
+      query: z.string(),
+    }),
+    outputSchema: z.unknown(),
+  },
+  async (input) => {
+    console.log(`Searching internet for: ${input.query}`);
+    // This is a simplified implementation that uses Gemini's built-in search.
+    // In a production app, you might use a dedicated search API for more control.
+    const result = await ai.generate({
+      prompt: `Search the internet for: ${input.query}`,
+      tools: [], // No tools needed for the search itself
+      config: {
+        tools: ['googleSearch'],
+      },
+    });
+    return result.text;
+  }
+);
 
 const retrieveRealTimeInformationPrompt = ai.definePrompt({
   name: 'retrieveRealTimeInformationPrompt',
@@ -56,7 +68,7 @@ const retrieveRealTimeInformationPrompt = ai.definePrompt({
 
   Query: {{{query}}}
 
-  Make sure to return the search results in the output.`,
+  Summarize the information you find and present it to the user. Do not just repeat the search results. If the tool doesn't find anything, say that you couldn't find any information.`,
 });
 
 const retrieveRealTimeInformationFlow = ai.defineFlow(
