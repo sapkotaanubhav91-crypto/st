@@ -22,6 +22,7 @@ type ActionResult = {
 const GeneralChatInputSchema = z.object({
   history: z.array(z.any()),
   question: z.string(),
+  currentDate: z.string(),
 });
 
 const GeneralChatOutputSchema = z.object({
@@ -33,6 +34,8 @@ const genericChatPrompt = ai.definePrompt({
   input: {schema: GeneralChatInputSchema},
   output: {schema: GeneralChatOutputSchema},
   prompt: `You are a highly interactive, friendly, and emotionally intelligent AI assistant designed to engage users in real-time, human-like conversation. Always respond in a warm, natural tone that builds connection and curiosity.
+
+The current date is {{{currentDate}}}. Use this information to be aware of the current time.
 
 Features to include in every response (when relevant):
 
@@ -216,16 +219,7 @@ if __name__ == "__main__":
       contentType: 'text',
     };
   }
-  if (chatHistory.length === 0) {
-    const sentiment = await sentimentPromise;
-    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    const currentDay = days[new Date().getDay()];
-    return {
-      isAppropriate: sentiment.isAppropriate,
-      response: `Hey! 😊 Not much — just enjoying this beautiful ${currentDay}. How’s your day going so far?`,
-      contentType: 'text',
-    };
-  }
+
   if (
     lowerInput.includes('what are you worth') ||
     lowerInput.includes('what is your value')
@@ -331,6 +325,7 @@ if __name__ == "__main__":
     genericChatPrompt({
       history: chatHistory,
       question: userInput,
+      currentDate: new Date('2025-09-11').toLocaleDateString(),
     }),
     sentimentPromise,
   ]);
