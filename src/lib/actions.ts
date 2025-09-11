@@ -217,10 +217,12 @@ if __name__ == "__main__":
     };
   }
   if (chatHistory.length === 0) {
-     const sentiment = await sentimentPromise;
+    const sentiment = await sentimentPromise;
+    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const currentDay = days[new Date().getDay()];
     return {
       isAppropriate: sentiment.isAppropriate,
-      response: "Hey! 😊 Not much — just enjoying this beautiful Thursday. How’s your day going so far?",
+      response: `Hey! 😊 Not much — just enjoying this beautiful ${currentDay}. How’s your day going so far?`,
       contentType: 'text',
     };
   }
