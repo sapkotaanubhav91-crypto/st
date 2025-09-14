@@ -325,7 +325,7 @@ if __name__ == "__main__":
     genericChatPrompt({
       history: chatHistory,
       question: userInput,
-      currentDate: new Date('2025-09-11').toLocaleDateString(),
+      currentDate: new Date().toLocaleDateString(),
     }),
     sentimentPromise,
   ]);
