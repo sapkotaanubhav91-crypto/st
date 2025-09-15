@@ -286,11 +286,16 @@ if __name__ == "__main__":
     'who is winning',
     'stock price',
     'weather forecast',
+    'what is',
+    'who is',
+    'where is',
+    'define',
+    'explain',
   ];
 
   const isCodeRequest = codeKeywords.some(keyword => lowerInput.includes(keyword));
   const isRealTimeRequest = realTimeKeywords.some(keyword =>
-    lowerInput.includes(keyword)
+    lowerInput.startsWith(keyword)
   );
 
   // Handle code generation
@@ -315,7 +320,7 @@ if __name__ == "__main__":
     ]);
     return {
       isAppropriate: sentiment.isAppropriate,
-      response: result.searchResults,
+      response: `Of course! Here is some information about that:\n\n${result.searchResults}`,
       contentType: 'text',
     };
   }

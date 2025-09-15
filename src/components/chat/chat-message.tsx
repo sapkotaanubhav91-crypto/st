@@ -8,6 +8,25 @@ import { useTypewriter } from "@/hooks/use-typewriter";
 import { CodeBlock } from "./code-block";
 import { ChatAvatar } from "./chat-avatar";
 import Image from "next/image";
+import React from "react";
+
+function formatContent(text: string) {
+  const words = text.split(' ');
+  const chunks = [];
+  const chunkSize = 60;
+
+  for (let i = 0; i < words.length; i += chunkSize) {
+    chunks.push(words.slice(i, i + chunkSize).join(' '));
+  }
+  
+  return chunks.map((chunk, index) => (
+    <React.Fragment key={index}>
+      {chunk}
+      {index < chunks.length - 1 && <hr className="my-4 border-white/20" />}
+    </React.Fragment>
+  ));
+}
+
 
 export function ChatMessage({
   role,
@@ -27,6 +46,11 @@ export function ChatMessage({
   
   const isUser = role === "user";
 
+  const formattedDisplayContent =
+    role === 'assistant' && typeof displayContent === 'string' && contentType !== 'code'
+      ? formatContent(displayContent)
+      : displayContent;
+
   return (
     <div
       className={cn(
@@ -37,7 +61,7 @@ export function ChatMessage({
       {!isUser && <ChatAvatar emotion={emotion} className="flex-shrink-0" />}
       <div
         className={cn(
-          "max-w-[80%] p-3 rounded-2xl text-sm",
+          "max-w-full w-full p-3 rounded-2xl text-sm",
            isUser
             ? "bg-primary text-primary-foreground"
             : "bg-muted text-foreground rounded-bl-none"
@@ -51,7 +75,7 @@ export function ChatMessage({
         {contentType === "code" && typeof displayContent === "string" ? (
           <CodeBlock code={displayContent} language={language || ""} />
         ) : (
-          <p className="whitespace-pre-wrap">{displayContent}</p>
+          <div className="whitespace-pre-wrap">{formattedDisplayContent}</div>
         )}
       </div>
       {isUser && (
